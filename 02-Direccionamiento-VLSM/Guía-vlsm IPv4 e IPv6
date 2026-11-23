@@ -2,8 +2,8 @@
 
 * Responsable: Manuel Maria
 
-* Bloque Base IPv4:`172.16.0.0/15`
-* Bloque Base IPv6: `2001:25:16::/48`
+* Bloque Base IPv4: 172.16.0.0/15
+* Bloque Base IPv6: 2001:25:16::/48
 
 ## Criterios de Diseño
 * Se aplicó VLSM en IPv4 ordenando las subredes de mayor a menor cantidad de hosts (desde Estudiantes hasta el enlace punto a punto).
