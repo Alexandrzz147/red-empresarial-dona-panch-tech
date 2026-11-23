@@ -7,7 +7,7 @@ Dispositivo: "R1" (Cisco IOS)
 El router "R1" funciona como puerta de enlace principal para las redes de usuarios del bloque derecho de la topología y establece la interconexión de capa 3 con el switch multicapa "SWM1":
 
 1. Router-on-a-Stick ("Ethernet0/1" hacia "SW4"): Se dividió la interfaz física en subinterfaces virtuales etiquetadas con IEEE 802.1Q ("dot1Q") para gestionar el tráfico entre las VLANs:
-   * VLAN 10 (Estudiantes): 172.16.0.1/21 | 2001:25:16:1::1/64
+   * VLAN 10 (Estudiantes): '172.16.0.1/21 | 2001:25:16:1::1/64'
    * VLAN 20 (Docentes): 172.16.8.1/24 | 2001:25:16:2::1/64
    * VLAN 60 (Gestión): 172.16.10.65/27 | 2001:25:16:6::1/64
    * VLAN 70 (Voz): 172.16.10.97/27 | 2001:25:16:7::1/64
