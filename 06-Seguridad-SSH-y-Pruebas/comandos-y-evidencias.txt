@@ -1,1 +1,1 @@
-
+Pendiente por pegar comandos estándar de SSH y salidas de pruebas (ping / show) entregados por Alizon.
