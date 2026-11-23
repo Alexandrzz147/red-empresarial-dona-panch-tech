@@ -1,7 +1,7 @@
 # Segmentación Lógica: VLANs y Dominios VTP
 
-* **Responsable:** Saymon[cite: 1]
-* **Dispositivos:** Switches de capa 2 (`SW`, `SW3`, `SW4`, `SW5`)[cite: 2]
+* Responsable: Saymon.
+* Dispositivos: Switches de capa 2 (`SW`, `SW3`, `SW4`, `SW5`)[cite: 2]
 
 ## Descripción de la Implementación
 * Creación y propagación de VLANs mediante **VTP (VLAN Trunking Protocol)** para separar el tráfico por departamentos[cite: 1].
