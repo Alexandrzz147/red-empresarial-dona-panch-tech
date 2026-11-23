@@ -1,0 +1,85 @@
+enable
+configure terminal
+hostname SWM1
+
+--- Activar el enrutamiento (esto lo convierte en router) ---
+ip routing
+ipv6 unicast-routing
+
+--- VLANs ---
+vlan 30
+ name ACADEMICOS
+vlan 40
+ name FINANZAS
+vlan 50
+ name DATACENTER
+vlan 80
+ name BLACKHULL
+exit
+
+--- Gateways de cada VLAN (SVIs) ---
+interface Vlan30
+ description GW VLAN Academicos
+ ip address 172.16.9.1 255.255.255.128
+ ipv6 address FE80::2 link-local
+ ipv6 address 2001:25:16:3::1/64
+ no shutdown
+
+interface Vlan40
+ description GW VLAN Finanzas
+ ip address 172.16.9.129 255.255.255.128
+ ipv6 address FE80::2 link-local
+ ipv6 address 2001:25:16:4::1/64
+ no shutdown
+
+interface Vlan50
+ description GW LAN Datacenter
+ ip address 172.16.10.1 255.255.255.192
+ ipv6 address FE80::2 link-local
+ ipv6 address 2001:25:16:5::1/64
+ no shutdown
+
+interface Vlan80
+ description GW VLAN Blackhull
+ ip address 172.16.10.129 255.255.255.240
+ ipv6 address FE80::2 link-local
+ ipv6 address 2001:25:16:8::1/64
+ no shutdown
+
+--- Puertos hacia los switches de acceso ---
+interface Ethernet0/0
+ description Trunk hacia SW3 (Finanzas / Academicos)
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 30,40,80
+ no shutdown
+
+interface Ethernet0/2
+ description Acceso hacia SW (SRV1 - Datacenter)
+ switchport mode access
+ switchport access vlan 50
+ spanning-tree portfast
+ no shutdown
+
+--- Enlace P2P hacia R1 (puerto enrutado, no VLAN) ---
+interface Ethernet0/1
+ description P2P hacia R1 e0/0
+ no switchport
+ ip address 172.16.10.145 255.255.255.252
+ ipv6 address FE80::2 link-local
+ ipv6 address 2001:25:16:9::/127
+ no shutdown
+
+--- Rutas estaticas hacia las VLANs que viven detras de R1 ---
+ip route 172.16.0.0   255.255.248.0   172.16.10.146
+ip route 172.16.8.0   255.255.255.0   172.16.10.146
+ip route 172.16.10.64 255.255.255.224 172.16.10.146
+ip route 172.16.10.96 255.255.255.224 172.16.10.146
+
+ipv6 route 2001:25:16:1::/64 2001:25:16:9::1
+ipv6 route 2001:25:16:2::/64 2001:25:16:9::1
+ipv6 route 2001:25:16:6::/64 2001:25:16:9::1
+ipv6 route 2001:25:16:7::/64 2001:25:16:9::1
+
+end
+write memory
