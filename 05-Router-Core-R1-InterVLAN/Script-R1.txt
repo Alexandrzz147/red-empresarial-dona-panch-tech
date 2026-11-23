@@ -2,10 +2,10 @@ enable
 configure terminal
 hostname R1
 
-! --- Habilitar enrutamiento IPv6 ---
+--- Habilitar enrutamiento IPv6 ---
 ipv6 unicast-routing
 
-! --- Seguridad y acceso SSH (Requisito Sprint 2) ---
+--- Seguridad y acceso SSH (Requisito Sprint 2) ---
 ip domain-name donapanchtech.local
 username admin privilege 15 secret Cisco12345!
 crypto key generate rsa modulus 2048
@@ -16,7 +16,7 @@ line vty 0 4
  transport input ssh
  exit
 
-! --- Enlace P2P hacia SWM1 (Ethernet0/1) ---
+--- Enlace P2P hacia SWM1 (Ethernet0/1) ---
 interface Ethernet0/0
  description Enlace P2P hacia SWM1 e0/1
  ip address 172.16.10.146 255.255.255.252
@@ -25,14 +25,14 @@ interface Ethernet0/0
  no shutdown
  exit
 
-! --- Interfaz Troncal hacia SW4 (Router-on-a-Stick) ---
+--- Interfaz Troncal hacia SW4 (Router-on-a-Stick) ---
 interface Ethernet0/1
  description Enlace Troncal hacia SW4 e0/0
  no ip address
  no shutdown
  exit
 
-! --- Subinterfaces Inter-VLAN ---
+--- Subinterfaces Inter-VLAN ---
 interface Ethernet0/1.10
  description GW VLAN Estudiantes
  encapsulation dot1Q 10
@@ -73,7 +73,7 @@ interface Ethernet0/1.80
  ipv6 address 2001:25:16:8::1/64
  exit
 
-! --- Rutas estaticas hacia las redes detras de SWM1 ---
+--- Rutas estaticas hacia las redes detras de SWM1 ---
 ip route 172.16.9.0   255.255.255.128 172.16.10.145
 ip route 172.16.9.128 255.255.255.128 172.16.10.145
 ip route 172.16.10.0  255.255.255.192 172.16.10.145
