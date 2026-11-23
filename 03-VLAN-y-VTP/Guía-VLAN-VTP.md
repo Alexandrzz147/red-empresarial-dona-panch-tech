@@ -1,6 +1,6 @@
 # Segmentación Lógica: VLANs y Dominios VTP
 
-* Responsable: Saymon.
+* Responsable: Saymon Suarez.
 * Dispositivos: Switches de capa 2 (`SW`, `SW3`, `SW4`, `SW5`).
 
 ## Descripción de la Implementación
