@@ -1,164 +1,140 @@
 ==================== R1 ====================
-hostname R1
 ip domain-name itla.local
-enable secret Cisco123
-username admin privilege 15 secret Cisco123
-ipv6 unicast-routing
-interface e0/1
- no shutdown
-interface e0/1.60
- encapsulation dot1Q 60
- ip address 172.16.10.65 255.255.255.224
- ipv6 address 2001:25:16:6::1/64
-interface e0/0
- no switchport
- ip address 172.16.10.145 255.255.255.252
- ipv6 address 2001:25:16:9::/127
- no shutdown
-ip route 172.16.9.0 255.255.255.0 172.16.10.146
-ip route 172.16.10.0 255.255.255.192 172.16.10.146
-ipv6 route 2001:25:16:5::/64 2001:25:16:9::1
-crypto key generate rsa modulus 2048
+!
+username Onel privilege 15 secret 9 $9$9tP9PPr2PA0PUf$vACRAgtVxV1AToKap8Vnb9jahqDXEXOO7x2aDgxD/Co
+!
+interface GigabitEthernet0/1.99
+ description Gateway Administracion (SSH)
+ encapsulation dot1Q 99
+ ip address 172.16.10.145 255.255.255.240
+ ipv6 address 2001:25:16:9::1/64
+!
+ip route 172.16.10.144 255.255.255.240 172.16.10.162
 ip ssh version 2
-ip ssh time-out 60
-ip ssh authentication-retries 3
+!
+ipv6 route 2001:25:16:9::/64 2001:25:16:10::2
+!
 line vty 0 4
  login local
  transport input ssh
- exec-timeout 5 0
-
-==================== SW4 ====================
-hostname SW4
-ip domain-name itla.local
-enable secret Cisco123
-username admin privilege 15 secret Cisco123
-vlan 60
- name Gestion
-interface e0/0
- switchport trunk encapsulation dot1q
- switchport mode trunk
- switchport trunk allowed vlan add 60
-interface range e0/1 - 2
- switchport trunk encapsulation dot1q
- switchport mode trunk
- switchport trunk allowed vlan add 60
- channel-group 1 mode active
-interface vlan 60
- ip address 172.16.10.66 255.255.255.224
- ipv6 address 2001:25:16:6::2/64
- no shutdown
-ip default-gateway 172.16.10.65
-crypto key generate rsa modulus 2048
-ip ssh version 2
-line vty 0 15
- login local
- transport input ssh
- exec-timeout 5 0
-
-==================== SW5 ====================
-hostname SW5
-ip domain-name itla.local
-enable secret Cisco123
-username admin privilege 15 secret Cisco123
-vlan 60
- name Gestion
-interface range e0/1 - 2
- switchport trunk encapsulation dot1q
- switchport mode trunk
- switchport trunk allowed vlan add 60
- channel-group 1 mode active
-interface e3/0
- switchport mode access
- switchport access vlan 60
-interface vlan 60
- ip address 172.16.10.67 255.255.255.224
- ipv6 address 2001:25:16:6::3/64
- no shutdown
-ip default-gateway 172.16.10.65
-crypto key generate rsa modulus 2048
-ip ssh version 2
-line vty 0 15
- login local
- transport input ssh
- exec-timeout 5 0
-
-==================== SWM1 ====================
-(El lado izquierdo se administra por la VLAN Datacenter, ID 50)
-hostname SWM1
-ip domain-name itla.local
-enable secret Cisco123
-username admin privilege 15 secret Cisco123
-ip routing
-ipv6 unicast-routing
-vlan 50
- name Datacenter
-interface e0/1
- no switchport
- ip address 172.16.10.146 255.255.255.252
- ipv6 address 2001:25:16:9::1/127
- no shutdown
-interface range e0/0, e0/2
- switchport trunk encapsulation dot1q
- switchport mode trunk
- switchport trunk allowed vlan add 50
-interface vlan 50
- ip address 172.16.10.1 255.255.255.192
- ipv6 address 2001:25:16:5::1/64
- no shutdown
-ip route 0.0.0.0 0.0.0.0 172.16.10.145
-ipv6 route ::/0 2001:25:16:9::
-crypto key generate rsa modulus 2048
-ip ssh version 2
-line vty 0 15
- login local
- transport input ssh
- exec-timeout 5 0
 
 ==================== SW3 ====================
-hostname SW3
 ip domain-name itla.local
-enable secret Cisco123
-username admin privilege 15 secret Cisco123
-vlan 50
- name Datacenter
-interface e0/0
- switchport trunk encapsulation dot1q
- switchport mode trunk
- switchport trunk allowed vlan add 50
-interface vlan 50
- ip address 172.16.10.2 255.255.255.192
- ipv6 address 2001:25:16:5::2/64
- no shutdown
-ip default-gateway 172.16.10.1
-crypto key generate rsa modulus 2048
-ip ssh version 2
-line vty 0 15
+!
+username Onel privilege 15 secret 9 $9$d4F.e0c3usz9U.$Zo.uVHDTdB.LU9EkAwy1bS.W7zNnv4/SLkwSLmNzvu2
+!
+interface Port-channel1
+ switchport trunk allowed vlan 10,20,50,60,70,99
+!
+interface Ethernet0/0
+ switchport trunk allowed vlan 10,20,50,60,70,99
+!
+interface range Ethernet0/1 - 2
+ switchport trunk allowed vlan 10,20,50,60,70,99
+!
+interface Vlan99
+ ip address 172.16.10.149 255.255.255.240
+ ipv6 address 2001:25:16:9::6/64
+!
+ip default-gateway 172.16.10.145
+!
+ip ssh bulk-mode 131072
+!
+line vty 0 4
  login local
  transport input ssh
- exec-timeout 5 0
+==================== SW4 ====================
+ip domain name itla.local
+!
+username Onel privilege 15 secret 9 $9$5KApK50L3zVRfU$8mIk.HsQcCGy57Ebsnsg/KxmRkytv2VbcZV.Ydjj2G2
+!
+interface Port-channel1
+ switchport trunk allowed vlan 10,20,50,60,70,99
+!
+interface Ethernet0/1
+ switchport trunk allowed vlan 10,20,50,60,70,99
+!
+interface Ethernet0/2
+ switchport trunk allowed vlan 10,20,50,60,70,99
+!
+interface Vlan99
+ ip address 172.16.10.150 255.255.255.240
+ ipv6 address 2001:25:16:9::5/64
+!
+ip default-gateway 172.16.10.145
+!
+ip ssh bulk-mode 131072
+!
+line vty 0 4
+ login local
+ transport input ssh
+
+
+
+==================== SWM1 ====================
+ip domain-name itla.local
+!
+username Onel privilege 15 secret 5 $1$yX9V$VhRI9fWfNSZDLruTFWcBQ1
+!
+interface GigabitEthernet0/0
+ switchport trunk allowed vlan 30,40,70,99
+!
+interface Vlan99
+ description Administracion (SSH)
+ ip address 172.16.10.146 255.255.255.240
+ ipv6 address 2001:25:16:9::2/64
+!
+ip route 172.16.10.144 255.255.255.240 172.16.10.161
+ip ssh version 2
+ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+!
+ipv6 route 2001:25:16:9::/64 2001:25:16:10::1
+!
+line vty 0 4
+ login local
+ transport input ssh
+line vty 5 15
+ login local
+ transport input ssh
+
+
+==================== SW2 ====================
+ip domain-name itla.local
+!
+username Onel privilege 15 secret 9 $9$AsD0LtAuH6YY.k$G2.i4Jf.l8DrkSzuXNk65M95QP7PJ.PSl5mVfq6rqPA
+!
+interface Ethernet0/0
+ switchport trunk allowed vlan 30,40,70,99
+!
+interface Vlan99
+ ip address 172.16.10.148 255.255.255.240
+ ipv6 address 2001:25:16:9::4/64
+!
+ip default-gateway 172.16.10.146
+!
+ip ssh bulk-mode 131072
+!
+line vty 0 4
+ login local
+ transport input ssh
 
 ==================== SW ====================
-hostname SW
 ip domain-name itla.local
-enable secret Cisco123
-username admin privilege 15 secret Cisco123
-vlan 50
- name Datacenter
-interface e0/0
- switchport trunk encapsulation dot1q
- switchport mode trunk
- switchport trunk allowed vlan add 50
-interface e0/1
- switchport mode access
- switchport access vlan 50
-interface vlan 50
- ip address 172.16.10.3 255.255.255.192
- ipv6 address 2001:25:16:5::3/64
- no shutdown
-ip default-gateway 172.16.10.1
-crypto key generate rsa modulus 2048
-ip ssh version 2
-line vty 0 15
+!
+username Onel privilege 15 secret 9 $9$2fOcFAX0gX91oU$ND/3Tw31sy7fT0JgLlwjBAS1guXm1cowmEOTUk7IyfU
+!
+vlan 99
+ name Administracion
+!
+interface Vlan99
+ ip address 172.16.10.147 255.255.255.240
+ ipv6 address 2001:25:16:9::3/64
+!
+ip default-gateway 172.16.10.146
+!
+ip ssh bulk-mode 131072
+!
+line vty 0 4
  login local
  transport input ssh
- exec-timeout 5 0
