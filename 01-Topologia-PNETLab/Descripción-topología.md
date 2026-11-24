@@ -1,4 +1,4 @@
-# Topología de Red Empresarial (PNETLab)
+# Topología de Red Empresarial 
 
 ## Descripción de la Arquitectura
 La red de **DOÑA PANCH TECH** está diseñada en dos bloques principales interconectados en Capa 3:
