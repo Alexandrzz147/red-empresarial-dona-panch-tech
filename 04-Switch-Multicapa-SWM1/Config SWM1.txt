@@ -1,0 +1,163 @@
+========
+SWM1
+========
+Running-config
+
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname SWM1
+!
+boot-start-marker
+boot-end-marker
+!
+username Onel privilege 15 secret 5 $1$yX9V$VhRI9fWfNSZDLruTFWcBQ1
+no aaa new-model
+no ip domain-lookup
+ip domain-name itla.local
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+interface GigabitEthernet0/0
+ switchport trunk allowed vlan 30,40,70,99
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 70
+ switchport mode trunk
+ negotiation auto
+!
+interface GigabitEthernet0/1
+ no switchport
+ ip address 172.16.10.162 255.255.255.252
+ negotiation auto
+ ipv6 address 2001:25:16:10::2/127
+!
+interface GigabitEthernet0/2
+ no switchport
+ ip address 172.16.10.1 255.255.255.192
+ negotiation auto
+ ipv6 address 2001:25:16:5::1/64
+!
+interface GigabitEthernet0/3
+ negotiation auto
+!
+interface Vlan30
+ description Gateway Academicos
+ ip address 172.16.9.1 255.255.255.128
+ ipv6 address 2001:25:16:3::1/64
+!
+interface Vlan40
+ description Gateway Finanzas
+ ip address 172.16.9.129 255.255.255.128
+ ipv6 address 2001:25:16:4::1/64
+!
+interface Vlan70
+ description Blackhull (Nativa)
+ ip address 172.16.10.130 255.255.255.240
+ ipv6 address 2001:25:16:8::2/64
+!
+interface Vlan99
+ description Administracion (SSH)
+ ip address 172.16.10.146 255.255.255.240
+ ipv6 address 2001:25:16:9::2/64
+!
+ip forward-protocol nd
+ip http server
+ip http secure-server
+!
+ip route 172.16.0.0 255.255.248.0 172.16.10.161
+ip route 172.16.8.0 255.255.255.0 172.16.10.161
+ip route 172.16.10.64 255.255.255.224 172.16.10.161
+ip route 172.16.10.96 255.255.255.224 172.16.10.161
+ip route 172.16.10.128 255.255.255.240 172.16.10.161
+ip route 172.16.10.144 255.255.255.240 172.16.10.161
+ip ssh version 2
+ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+!
+ipv6 route 2001:25:16:1::/64 2001:25:16:10::1
+ipv6 route 2001:25:16:2::/64 2001:25:16:10::1
+ipv6 route 2001:25:16:6::/64 2001:25:16:10::1
+ipv6 route 2001:25:16:7::/64 2001:25:16:10::1
+ipv6 route 2001:25:16:8::/64 2001:25:16:10::1
+ipv6 route 2001:25:16:9::/64 2001:25:16:10::1
+!
+control-plane
+!
+line con 0
+line aux 0
+line vty 0 4
+ login local
+ transport input ssh
+line vty 5 15
+ login local
+ transport input ssh
+!
+end
+
+============
+VTP status
+============
+
+VTP Version capable             : 1 to 3
+VTP version running             : 2
+VTP Domain Name                 : RED_ITLA
+VTP Pruning Mode                : Disabled
+VTP Traps Generation            : Disabled
+Device ID                       : 5254.001f.8000
+Configuration last modified by 172.16.9.1 at 11-24-26 04:49:37
+Local updater ID is 172.16.9.1 on interface Vl30 (lowest numbered VLAN interface found)
+
+Feature VLAN:
+--------------
+VTP Operating Mode                : Server
+Maximum VLANs supported locally   : 1005
+Number of existing VLANs          : 13
+Configuration Revision            : 0
+MD5 digest                        : 0x90 0x72 0x8E 0x32 0xC2 0xD4 0xE7 0xEE 
+                                    0x44 0xCD 0x41 0xEA 0x3C 0x8B 0xF8 0xE7 
+
+
+============
+Vlan brief
+============
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    
+10   Estudiantes                      active    
+20   Docentes                         active    
+30   Academicos                       active    
+40   Finanzas                         active    
+50   Gestion                          active    
+60   Voz                              active    
+70   Blackhull                        active    Gi0/3
+99   Administracion                   active    
+1002 fddi-default                     act/unsup 
+1003 trcrf-default                    act/unsup 
+1004 fddinet-default                  act/unsup 
+1005 trbrf-default                    act/unsup 
+
+==================
+interfaces trunk
+==================
+
+Port        Mode             Encapsulation  Status        Native vlan
+Gi0/0       on               802.1q         trunking      70
+
+Port        Vlans allowed on trunk
+Gi0/0       30,40,70,99
+
+Port        Vlans allowed and active in management domain
+Gi0/0       30,40,70,99
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Gi0/0       30,40,70,99
+
+
