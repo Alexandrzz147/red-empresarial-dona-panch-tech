@@ -1,0 +1,139 @@
+==============
+SW2
+=============
+Running-config
+
+version 17.15
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname SW2
+!
+boot-start-marker
+boot-end-marker
+!
+no aaa new-model
+!
+ip audit notify log
+ip audit po max-events 100
+no ip domain lookup
+ip domain-name itla.local
+ip cef
+login on-success log
+no ipv6 cef
+!
+memory free low-watermark processor 79593
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+username Onel privilege 15 secret 9 $9$AsD0LtAuH6YY.k$G2.i4Jf.l8DrkSzuXNk65M95QP7PJ.PSl5mVfq6rqPA
+!
+vlan internal allocation policy ascending
+!
+interface Ethernet0/0
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 70
+ switchport trunk allowed vlan 30,40,70,99
+ switchport mode trunk
+!
+interface Ethernet0/1
+ description Hacia FIN1 (VLAN Finanzas)
+ switchport access vlan 40
+ switchport mode access
+ spanning-tree portfast
+!
+interface Ethernet0/2
+ description Hacia ACA1 (VLAN Academicos)
+ switchport access vlan 30
+ switchport mode access
+ spanning-tree portfast
+!
+interface Ethernet0/3
+ switchport access vlan 70
+ switchport mode access
+ shutdown
+!
+interface Vlan99
+ ip address 172.16.10.148 255.255.255.240
+ ipv6 address 2001:25:16:9::4/64
+!
+ip default-gateway 172.16.10.146
+ip forward-protocol nd
+!
+ip http server
+ip http secure-server
+ip ssh bulk-mode 131072
+!
+no logging btrace
+!
+control-plane
+!
+line con 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login local
+ transport input ssh
+!
+end
+
+===========
+VTP status
+===========
+
+SW2# show vt
+SW2# show vtp status
+VTP Version capable             : 1 to 3
+VTP version running             : 2
+VTP Domain Name                 : RED_ITLA
+VTP Pruning Mode                : Disabled (Operationally Disabled)
+VTP Traps Generation            : Disabled
+Device ID                       : aabb.cc80.0a00
+Configuration last modified by 172.16.9.1 at 11-24-26 04:49:37
+
+Feature VLAN:
+--------------
+VTP Operating Mode                : Client
+Maximum VLANs supported locally   : 1005
+Number of existing VLANs          : 13
+Configuration Revision            : 0
+MD5 digest                        : 0x90 0x72 0x8E 0x32 0xC2 0xD4 0xE7 0xEE 
+                                    0x44 0xCD 0x41 0xEA 0x3C 0x8B 0xF8 0xE7
+
+=============
+Vlan brief
+=============
+
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    
+10   Estudiantes                      active    
+20   Docentes                         active    
+30   Academicos                       active    Et0/2
+40   Finanzas                         active    Et0/1
+50   Gestion                          active    
+60   Voz                              active    
+70   Blackhull                        active    Et0/3
+99   Administracion                   active    
+1002 fddi-default                     act/unsup 
+1003 trcrf-default                    act/unsup 
+1004 fddinet-default                  act/unsup 
+1005 trbrf-default                    act/unsup 
+
+==================
+interfaces trunk
+==================
+
+Port           Mode             Encapsulation  Status        Native vlan  
+Et0/0          on               802.1q         trunking      70
+
+Port           Vlans allowed on trunk
+Et0/0          30,40,70,99
+
+Port           Vlans allowed and active in management domain
+Et0/0          30,40,70,99
+
+Port           Vlans in spanning tree forwarding state and not pruned
+Et0/0          30,40,70,99

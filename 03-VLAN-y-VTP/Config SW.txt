@@ -1,0 +1,97 @@
+========
+SW
+========
+Running-config
+
+version 17.15
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname SW
+!
+boot-start-marker
+boot-end-marker
+!
+no aaa new-model
+!
+ip audit notify log
+ip audit po max-events 100
+no ip domain lookup
+ip domain-name itla.local
+ip cef
+login on-success log
+no ipv6 cef
+!
+vtp domain itla.local
+vtp mode transparent
+!
+memory free low-watermark processor 79593
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+username Onel privilege 15 secret 9 $9$2fOcFAX0gX91oU$ND/3Tw31sy7fT0JgLlwjBAS1guXm1cowmEOTUk7IyfU
+!
+vlan internal allocation policy ascending
+!
+vlan 10
+ name Estudiantes
+!
+vlan 20
+ name Docentes
+!
+vlan 30
+ name Academicos
+!
+vlan 40
+ name Finanzas
+!
+vlan 50
+ name Gestion
+!
+vlan 60
+ name Voz
+!
+vlan 70
+ name Blackhull
+!
+vlan 99
+ name Administracion
+!
+interface Ethernet0/0
+!
+interface Ethernet0/1
+!
+interface Ethernet0/2
+ switchport access vlan 70
+ switchport mode access
+ shutdown
+!
+interface Ethernet0/3
+ switchport access vlan 70
+ switchport mode access
+ shutdown
+!
+interface Vlan99
+ ip address 172.16.10.147 255.255.255.240
+ ipv6 address 2001:25:16:9::3/64
+!
+ip default-gateway 172.16.10.146
+ip forward-protocol nd
+!
+ip http server
+ip http secure-server
+ip ssh bulk-mode 131072
+!
+no logging btrace
+!
+control-plane
+!
+line con 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login local
+ transport input ssh
+!
+end

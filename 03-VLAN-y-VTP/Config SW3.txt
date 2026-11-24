@@ -1,0 +1,161 @@
+==========
+SW3
+==========
+Running-config
+
+version 17.15
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname SW3
+!
+boot-start-marker
+boot-end-marker
+!
+no aaa new-model
+!
+ip audit notify log
+ip audit po max-events 100
+no ip domain lookup
+ip domain-name itla.local
+ip cef
+login on-success log
+no ipv6 cef
+!
+memory free low-watermark processor 79593
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+username Onel privilege 15 secret 9 $9$d4F.e0c3usz9U.$Zo.uVHDTdB.LU9EkAwy1bS.W7zNnv4/SLkwSLmNzvu2
+!
+vlan internal allocation policy ascending
+!
+interface Port-channel1
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 70
+ switchport trunk allowed vlan 10,20,50,60,70,99
+ switchport mode trunk
+!
+interface Ethernet0/0
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 70
+ switchport trunk allowed vlan 10,20,50,60,70,99
+ switchport mode trunk
+!
+interface Ethernet0/1
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 70
+ switchport trunk allowed vlan 10,20,50,60,70,99
+ switchport mode trunk
+ channel-group 1 mode active
+!
+interface Ethernet0/2
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 70
+ switchport trunk allowed vlan 10,20,50,60,70,99
+ switchport mode trunk
+ channel-group 1 mode active
+!
+interface Ethernet0/3
+ description Hacia DOC1 (VLAN Docentes)
+ switchport access vlan 20
+ switchport mode access
+ spanning-tree portfast
+!
+interface Vlan99
+ ip address 172.16.10.149 255.255.255.240
+ ipv6 address 2001:25:16:9::6/64
+!
+ip default-gateway 172.16.10.145
+ip forward-protocol nd
+!
+ip http server
+ip http secure-server
+ip ssh bulk-mode 131072
+!
+no logging btrace
+!
+control-plane
+!
+line con 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login local
+ transport input ssh
+!
+end
+
+=================
+VLAN brief
+=================
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    
+10   Estudiantes                      active    
+20   Docentes                         active    Et0/3
+50   Gestion                          active    
+60   Voz                              active    
+70   Blackhull                        active    
+99   Administracion                   active    
+1002 fddi-default                     act/unsup 
+1003 trcrf-default                    act/unsup 
+1004 fddinet-default                  act/unsup 
+1005 trbrf-default                    act/unsup 
+
+===============
+VTP status
+===============
+
+VTP Version capable             : 1 to 3
+VTP version running             : 2
+VTP Domain Name                 : RED_ITLA_R1
+VTP Pruning Mode                : Disabled (Operationally Disabled)
+VTP Traps Generation            : Disabled
+Device ID                       : aabb.cc80.0900
+Configuration last modified by 0.0.0.0 at 11-24-26 03:34:43
+Local updater ID is 172.16.10.149 on interface Vl99 (lowest numbered VLAN interface found)
+
+Feature VLAN:
+--------------
+VTP Operating Mode                : Server
+Maximum VLANs supported locally   : 1005
+Number of existing VLANs          : 11
+Configuration Revision            : 0
+MD5 digest                        : 0x73 0x1B 0x18 0xB2 0xBF 0x01 0x53 0xEA 
+                                    0xAD 0x6F 0x4B 0x27 0xBF 0x44 0x32 0xE6
+
+=======================
+Interfaces trunk
+=======================
+
+
+Port           Mode             Encapsulation  Status        Native vlan  
+Et0/0          on               802.1q         trunking      70
+Po1            on               802.1q         trunking      70
+
+Port           Vlans allowed on trunk
+Et0/0          10,20,50,60,70,99
+Po1            10,20,50,60,70,99
+
+Port           Vlans allowed and active in management domain
+Et0/0          10,20,50,60,70,99
+Po1            10,20,50,60,70,99
+
+Port           Vlans in spanning tree forwarding state and not pruned
+Et0/0          10,20,50,60,70,99
+Po1            10,20,50,60,70,99
+
+
+======================
+Etherchannel sumary
+======================
+
+Number of channel-groups in use: 1
+Number of aggregators:           1
+
+Group  Port-channel  Protocol    Ports
+------+-------------+-----------+-----------------------------------------------
+1      Po1(SU)         LACP        Et0/1(P)        Et0/2(P)        
