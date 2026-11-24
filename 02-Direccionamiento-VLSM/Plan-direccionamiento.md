@@ -1,8 +1,9 @@
 ===============================
-Tabla de Direccionamiento VLSM
+ Tabla de Direccionamiento VLSM
 ===============================	
 
-	LAN			     Red Asignada		Gateway
+	LAN			                  Red Asignada		        Gateway
+	
 VLAN estudiantes (1500 hosts)	   2001:25:16:1::/64 	     2001:25:16:1::1/64
 VLAN Docentes (164 hosts) 	   2001:25:16:2::/64 	     2001:25:16:2::1/64 
 VLAN Académicos (80 hosts)  	   2001:25:16:3::/64 	     2001:25:16:3::1/64
@@ -14,7 +15,8 @@ VLAN Blackhull (10 hosts)	   2001:25:16:8::/64 	     2001:25:16:8::1/64
 VLAN Administracion (10 hosts)     2001:25:16:9::/64 	     2001:25:16:8::1/64
 LAN P2P (2 hosts) 		   2001:25:16:10::/127 	            N/A
 
-	LAN			     Red Asignada		  Gateway
+	LAN			                   Red Asignada		     Gateway
+	
 VLAN estudiantes (1500 hosts)	    172.16.0.0/24		172.16.0.1
 VLAN Docentes (164 hosts) 	    172.16.8.0/24		172.16.8.1
 VLAN Académicos (80 hosts)  	    172.16.9.0/25	        172.16.9.1
@@ -24,26 +26,29 @@ VLAN Gestion (29 hosts)	   	    172.16.10.64/27 	        172.16.10.65
 VLAN Voz (16 hosts)    	   	    172.16.10.96/27	        172.16.10.97
 VLAN Blackhull (10 hosts)	    172.16.10.128/28 	        172.16.10.129
 VLAN Administracion (10 hosts)      172.16.10.144/28	        172.16.10.145
-LAN P2P (2 hosts) 		    172.16.10.160/30	            N/A
+LAN P2P (2 hosts) 		            172.16.10.160/30	            N/A
 
-	Equipo			     DireccionIP		  Gateway
-        R1 g0/0			    172.16.10.161/30		    N/A
+
+	Equipo			     DireccionIP		           Gateway
+	
+        R1 g0/0			            172.16.10.161/30		        N/A
         R1 g0/0                     2001:25:16:10::1/127            N/A
         R1 g0/1.10                  172.16.0.1/21                   N/A
         R1 g0/1.10                  2001:25:16:1::1/64              N/A
         R1 g0/1.20                  172.16.8.1/24                   N/A 
         R1 g0/1.20                  2001:25:16:2::1/64              N/A
         R1 g0/1.50                  172.16.10.65/27                 N/A
-	R1 g0/1.50                  2001:25:16:6::1/64              N/A
+        R1 g0/1.50                  2001:25:16:6::1/64              N/A
         R1 g0/1.60                  172.16.10.97/27                 N/A
         R1 g0/1.60                  2001:25:16:7::1/64              N/A
         R1 g0/1.70                  172.16.10.129/29                N/A
         R1 g0/1.70                  2001:25:16:8::1/64              N/A
-        R1 g0/1.99                  172.16.10.145/28               N/A
+        R1 g0/1.99                  172.16.10.145/28                N/A
         R1 g0/1.99                  2001:25:16:9::1/64              N/A
 
 
-	Equipo			     DireccionIP		  Gateway
+	Equipo			               DireccionIP		              Gateway
+	
         SWM1 g0/1                  172.16.10.162/30                 N/A
         SWM1 g0/1                  2001:25:16:10::2/127             N/A
         SWM1 g0/1                  172.16.10.162/30                 N/A
@@ -59,7 +64,8 @@ LAN P2P (2 hosts) 		    172.16.10.160/30	            N/A
         SWM1 VLAN 99               2001:25:16:9::2/64               N/A
 
 
-	Equipo			     DireccionIP		  Gateway
+	Equipo			     DireccionIP		        Gateway
+	 
         SW VLAN 99                  172.16.10.147/28           172.16.10.146
         SW VLAN 99                  2001:25:16:9::3/64         2001:25:16:9::2/64
         SW2 VLAN 99                 172.16.10.148/28           172.16.10.146
@@ -68,8 +74,9 @@ LAN P2P (2 hosts) 		    172.16.10.160/30	            N/A
         SW3 VLAN 99                 2001:25:16:9::4/64         172.16.10.145
         SW4 VLAN 99                 172.16.10.150/28           172.16.10.145
         SW4 VLAN 99                 2001:25:16:9::5/64         172.16.10.145
-
-        Equipo			     DireccionIP		  Gateway
+		
+    Equipo			     DireccionIP		         Gateway
+	
         SRV1                        172.16.10.10/26            172.16.10.1
         SRV1                        2001:25:16:5::2/64         2001:25:16:5::1
         FIN1                        172.16.9.130/25            172.16.9.129
