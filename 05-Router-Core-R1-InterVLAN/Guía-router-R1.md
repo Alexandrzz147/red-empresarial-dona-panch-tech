@@ -11,7 +11,7 @@ El router `R1` funciona como puerta de enlace principal para las redes de usuari
    * **VLAN 20 (Docentes):** `172.16.8.1/24` | `2001:25:16:2::1/64`
    * **VLAN 60 (Gestión):** `172.16.10.65/27` | `2001:25:16:6::1/64`
    * **VLAN 70 (Voz):** `172.16.10.97/27` | `2001:25:16:7::1/64`
-   * **VLAN 80 (Blackhull):** `172.16.10.129/28` | `2001:25:16:8::1/64`
+   * **VLAN 80 (Blackhole):** `172.16.10.129/28` | `2001:25:16:8::1/64`
      
 2. **Enlace Punto a Punto (`Ethernet0/0` hacia `SWM1`):** Configurado en doble pila con `172.16.10.146/30` (IPv4), `2001:25:16:9::1/127` (IPv6) y dirección link-local `FE80::1`.
 3. **Enrutamiento Estático:** Rutas IPv4 e IPv6 apuntando hacia `SWM1` (`172.16.10.145` y `2001:25:16:9::`) para alcanzar las redes de Académicos, Finanzas y Datacenter.
