@@ -1,1 +1,0 @@
-Pendiente por pegar los comandos CLI de los switches de capa 2 (SW3, SW4, SW5) entregados por Saymon.
