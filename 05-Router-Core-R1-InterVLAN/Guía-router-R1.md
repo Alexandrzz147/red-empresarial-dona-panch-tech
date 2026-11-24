@@ -1,6 +1,6 @@
 # Configuración de Router Core (R1) y Enrutamiento Inter-VLAN
 
-* **Responsable:** Nashley Arias / Equipo Inter-Vlan Routing
+* **Responsable:** Nashley Arias / Equipo Inter-VLAN Routing
 * **Dispositivo:** `R1` (Cisco IOS)
 
 ## Descripción de la Implementación
