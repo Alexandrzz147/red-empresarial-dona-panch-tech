@@ -4,14 +4,23 @@ Tabla de Direccionamiento VLSM
 	LAN			                  Red Asignada		        Gateway
 	
 VLAN estudiantes (1500 hosts)	   2001:25:16:1::/64 	     2001:25:16:1::1/64
+
 VLAN Docentes (164 hosts) 	   2001:25:16:2::/64 	     2001:25:16:2::1/64 
+
 VLAN Académicos (80 hosts)  	   2001:25:16:3::/64 	     2001:25:16:3::1/64
+
 VLAN Finanzas (64 hosts)	   2001:25:16:4::/64 	     2001:25:16:4::1/64
+
 LAN Datacenter (44 hosts)  	   2001:25:16:5::/64 	     2001:25:16:5::1/64
+
 VLAN Gestion (29 hosts)	   	   2001:25:16:6::/64 	     2001:25:16:6::1/64
+
 VLAN Voz (16 hosts)    	   	   2001:25:16:7::/64 	     2001:25:16:7::1/64
+
 VLAN Blackhull (10 hosts)	   2001:25:16:8::/64 	     2001:25:16:8::1/64
+
 VLAN Administracion (10 hosts)     2001:25:16:9::/64 	     2001:25:16:8::1/64
+
 LAN P2P (2 hosts) 		   2001:25:16:10::/127 	            N/A
 
 	LAN			                   Red Asignada		     Gateway
@@ -27,9 +36,13 @@ VLAN Finanzas (64 hosts)	    172.16.9.128/25 	        172.16.9.129
 LAN Datacenter (44 hosts)  	    172.16.10.0/26 	        172.16.10.1
 
 VLAN Gestion (29 hosts)	   	    172.16.10.64/27 	        172.16.10.65
+
 VLAN Voz (16 hosts)    	   	    172.16.10.96/27	        172.16.10.97
+
 VLAN Blackhull (10 hosts)	    172.16.10.128/28 	        172.16.10.129
+
 VLAN Administracion (10 hosts)      172.16.10.144/28	        172.16.10.145
+
 LAN P2P (2 hosts) 		            172.16.10.160/30	            N/A
 
 
