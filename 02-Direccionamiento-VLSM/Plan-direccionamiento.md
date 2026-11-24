@@ -1,5 +1,4 @@
-===============================
- Tabla de Direccionamiento VLSM
+Tabla de Direccionamiento VLSM
 ===============================	
 
 	LAN			                  Red Asignada		        Gateway
